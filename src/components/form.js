@@ -25,6 +25,7 @@ const Form = () => {
       const res = await api.get(`/translate`, { params })
       const { translations } = res.data
 
+      // Handling empty result
       if (!translations.length) {
         return setError('We could not find any translation for your text. Please, try again.')
       }
