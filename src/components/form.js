@@ -1,14 +1,38 @@
+import React, { useState } from 'react'
 import languages from "../data/languages";
+import api from "../services/api";
 
 const Form = () => {
-  function submit(e) {
+  const [ loading, setLoading ] = useState(false)
+  const [ language, setLanguage ] = useState('EN')
+  const [ text, setText ] = useState('')
+
+  const [ error, setError ] = useState(null)
+
+  async function submit(e) {
     e.preventDefault();
-    // TODO
+
+    setLoading(true)
+    setError(null)
+
+    const params = {
+      target_lang: language,
+      text
+    }
+
+    try {
+      const res = await api.get(`/translate`, { params })
+    } catch (e) {
+      const { message = 'Something went wrong. Try again or contact our support.' } = e.response.data || {};
+      setError(message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <div className="mt-5">
-      <form noValidate onSubmit={ submit }>
+      <form onSubmit={ submit }>
         <div className="shadow overflow-hidden sm:rounded-md">
           <div className="px-4 py-5 bg-white sm:p-6">
             <div className="grid grid-cols-6 gap-6">
@@ -21,6 +45,8 @@ const Form = () => {
                   id="target_lang"
                   name="target_lang"
                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  value={ language }
+                  onChange={ e => setLanguage(e.target.value) }
                 >
                   {
                     languages.map((item, index) => (
@@ -42,6 +68,8 @@ const Form = () => {
                   name="text"
                   id="text"
                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  value={ text }
+                  onChange={ e => setText(e.target.value) }
                   required
                 />
               </div>
@@ -51,8 +79,9 @@ const Form = () => {
             <button
               type="submit"
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={ loading }
             >
-              Translate
+              { loading ? 'Transling...' : 'Translate' }
             </button>
           </div>
         </div>
