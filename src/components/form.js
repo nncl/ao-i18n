@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import languages from "../data/languages";
 import api from "../services/api";
+import Alert from "./alert";
 
 const Form = () => {
   const [ loading, setLoading ] = useState(false)
@@ -85,6 +86,10 @@ const Form = () => {
             </button>
           </div>
         </div>
+
+        {
+          error && (<Alert>{ error }</Alert>)
+        }
       </form>
     </div>
   )
