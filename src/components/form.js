@@ -5,7 +5,7 @@ import Alert from "./alert";
 
 const Form = () => {
   const [ loading, setLoading ] = useState(false)
-  const [ language, setLanguage ] = useState('EN')
+  const [ language, setLanguage ] = useState('FR')
   const [ text, setText ] = useState('')
 
   const [ error, setError ] = useState(null)
@@ -23,6 +23,7 @@ const Form = () => {
 
     try {
       const res = await api.get(`/translate`, { params })
+      // TODO
     } catch (e) {
       const { message = 'Something went wrong. Try again or contact our support.' } = e.response.data || {};
       setError(message)

@@ -1,9 +1,5 @@
 export default [
   {
-    title: 'English',
-    source_lang: 'EN'
-  },
-  {
     title: 'French',
     source_lang: 'FR'
   },
