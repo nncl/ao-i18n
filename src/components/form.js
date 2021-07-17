@@ -23,7 +23,12 @@ const Form = () => {
 
     try {
       const res = await api.get(`/translate`, { params })
-      // TODO
+      const { translations } = res.data
+
+      if (!translations.length) {
+        return setError('We could not find any translation for your text. Please, try again.')
+      }
+
     } catch (e) {
       const { message = 'Something went wrong. Try again or contact our support.' } = e.response.data || {};
       setError(message)
