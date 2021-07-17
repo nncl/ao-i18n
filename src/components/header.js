@@ -5,7 +5,7 @@ const Header = () => (
         Simple DeepL API integration
       </h3>
       <p className="mt-1 text-sm text-gray-600">
-        Translate any text you cant simply by typing and pressing. Simple as that.
+        Translate any text you want simply by typing and pressing. Simple as that.
       </p>
     </div>
   </div>
