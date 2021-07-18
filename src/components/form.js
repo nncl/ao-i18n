@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import languages from "../data/languages";
-import api from "../services/api";
+
 import Alert from "./alert";
+import Translation from "./translation";
+
+import api from "../services/api";
 
 const Form = () => {
   const [ loading, setLoading ] = useState(false)
@@ -9,12 +12,14 @@ const Form = () => {
   const [ text, setText ] = useState('')
 
   const [ error, setError ] = useState(null)
+  const [ translation, setTranslation ] = useState(null)
 
   async function submit(e) {
     e.preventDefault();
 
     setLoading(true)
     setError(null)
+    setTranslation(null)
 
     const params = {
       target_lang: language,
@@ -29,6 +34,9 @@ const Form = () => {
       if (!translations.length) {
         return setError('We could not find any translation for your text. Please, try again.')
       }
+
+      const { text: translation } = translations[0]
+      setTranslation(translation)
 
     } catch (e) {
       const { message = 'Something went wrong. Try again or contact our support.' } = e.response.data || {};
@@ -95,7 +103,17 @@ const Form = () => {
         </div>
 
         {
-          error && (<Alert>{ error }</Alert>)
+          error && (
+            <Alert>{ error }</Alert>
+          )
+        }
+
+        {
+          translation && (
+            <Translation>
+              { translation }
+            </Translation>
+          )
         }
       </form>
     </div>
