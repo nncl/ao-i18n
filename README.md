@@ -31,10 +31,6 @@ together with the command above.
 More info of what have changed you can find at [Tailwind CSS Docs](https://tailwindcss.com/docs/guides/create-react-app)
 .
 
-## Demo
-
-You can preview the demo app at [https://all-out-i18n.surge.sh/](https://all-out-i18n.surge.sh/).
-
 ## Available Scripts
 
 In the project directory, you can run:
